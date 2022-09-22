@@ -1,6 +1,5 @@
-from sqlite3 import adapt
-from tokens import TokenType
-from nodes import *
+from .tokens import TokenType
+from .nodes import *
 
 class Parser:
     def __init__(self, tokens) -> None:

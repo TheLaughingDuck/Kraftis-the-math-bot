@@ -1,4 +1,4 @@
-from tokens import Token, TokenType
+from .tokens import Token, TokenType
 
 WHITESPACE = " \n\t"
 DIGITS = "1234567890"
