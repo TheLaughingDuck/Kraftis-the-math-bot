@@ -1,4 +1,3 @@
-from doctest import UnexpectedException
 import math
 
 
