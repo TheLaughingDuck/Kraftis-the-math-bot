@@ -1,2 +1,6 @@
+#Secrets
 .env
+
+# Local only files
 Kraftis_venv
+__pycache__
