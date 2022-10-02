@@ -1,8 +1,9 @@
 from .lexer import Lexer
+from .tokens import TokenType
 from .parser_ import Parser
 from .interpreter import Interpreter
 
-# Discrete Calculations
+# Perform One Calculation
 def evaluate(text):
     try:
         # CREATE A TREE
@@ -22,18 +23,18 @@ def evaluate(text):
 
 # For Continuous calculations
 while False:
-    try:
-        # CREATE A TREE
-        text = input(">> ")
-        lexer = Lexer(text)
-        tokens = lexer.generate_tokens()
-        parser = Parser(tokens)
-        tree = parser.parse()
+        try:
+            # CREATE A TREE
+            text = input(">> ")
+            lexer = Lexer(text)
+            tokens = lexer.generate_tokens()
+            parser = Parser(tokens)
+            tree = parser.parse()
 
-        # Resolve the TREE
-        if not tree: continue
-        interpreter = Interpreter()
-        value = interpreter.visit(tree)
-        print(value)
-    except Exception as e:
-        print(e)
+            # Resolve the TREE
+            if not tree: continue
+            interpreter = Interpreter()
+            value = interpreter.visit(tree)
+            print(value)
+        except Exception as e:
+            print(e)

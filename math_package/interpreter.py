@@ -1,5 +1,7 @@
 from .nodes import *
-from .values import Number
+from .values import Number, Variable
+
+import math
 
 class Interpreter:
     def visit(self, node):
@@ -10,6 +12,13 @@ class Interpreter:
     
     def visit_NumberNode(self, node):
         return Number(node.value)
+    
+    def visit_FunctionNode(self, node):
+        num = math.sin(self.visit(node.input.value).value)
+        return Number(num)
+    
+    def visit_VariableNode(self, node):
+        return Variable()
     
     def visit_AddNode(self, node):
         return Number(self.visit(node.node_a).value + self.visit(node.node_b).value)

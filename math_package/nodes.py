@@ -7,6 +7,20 @@ class NumberNode:
     def __repr__(self):
         return f"{self.value}"
 
+@dataclass
+class VariableNode:
+    name: str
+    
+    def __repr__(self):
+        return f"{self.name}"
+
+@dataclass
+class FunctionNode:
+    name: str
+    input: any #? A numbernode?
+
+    def __repr__(self) -> str:
+        return f"{self.name}({self.input})"
 
 @dataclass
 class AddNode:

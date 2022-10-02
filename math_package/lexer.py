@@ -2,6 +2,8 @@ from .tokens import Token, TokenType
 
 WHITESPACE = " \n\t"
 DIGITS = "1234567890"
+VARNAMES = "X"
+LETTERS = "abcdefghijklmnopqrstuvwxyz"
 
 class Lexer:
     def __init__(self, text):
@@ -21,6 +23,7 @@ class Lexer:
             if self.current_char in WHITESPACE:
                 self.advance()
             
+            # Create ordinary tokens (number, signs, parentheses)
             elif self.current_char == "." or self.current_char in DIGITS:
                 yield self.generate_number()
             elif self.current_char == "+":
@@ -37,13 +40,37 @@ class Lexer:
                 yield Token(TokenType.DIVIDE)
             elif self.current_char == "(":
                 self.advance()
-                yield Token(TokenType.LAPREN)
+                yield Token(TokenType.LPAREN)
             elif self.current_char == ")":
                 self.advance()
                 yield Token(TokenType.RPAREN)
-            elif self.current_char == "x":
+            
+            # Create VARIABLE token
+            elif self.current_char in VARNAMES:
+                thisname = self.current_char
                 self.advance()
-                yield Token(TokenType.VARIABLE)
+                yield Token(TokenType.VARIABLE, value=thisname) #change value to name
+            
+            # Create FUNCTION token
+            elif self.current_char in LETTERS:
+                # Collect the whole supposed function name
+                func_name = self.current_char
+                self.advance()
+                
+                while self.current_char != None and (self.current_char in LETTERS):
+                    func_name += self.current_char
+                    self.advance()
+                
+                # Maybe check if function exists?
+                yield Token(TokenType.FUNCTION, name=func_name)
+
+                #Proceed to yield parentheses and input
+                #Do this in parser_.py instead
+                #if self.current_char != "(":
+                #    raise Exception("Incorrect format. Expected: \"(\" but Received: " + self.current_char)
+                #self.advance()
+
+
             
             else:
                 raise Exception(f"Un-interpretable character: '{self.current_char}'")
@@ -71,4 +98,5 @@ class Lexer:
             number_str += "0"
         
         # Number is finished, time to return it
-        return Token(TokenType.NUMBER, float(number_str))
+        return Token(TokenType.NUMBER, value=float(number_str))
+        

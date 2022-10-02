@@ -2,13 +2,13 @@ from .tokens import TokenType
 from .nodes import *
 
 class Parser:
-    def __init__(self, tokens) -> None:
+    def __init__(self, tokens):
         self.tokens = iter(tokens)
         self.advance()
 
 
-    def raise_error(self):
-        raise Exception("Invalid Syntax")
+    def raise_error(self, message=""):
+        raise Exception("Invalid Syntax " + message)
 
 
     def advance(self):
@@ -29,6 +29,7 @@ class Parser:
         
         return result
     
+
     # CREATE AN EXPRESSION
     def expr(self):
         result = self.term()
@@ -43,6 +44,7 @@ class Parser:
         
         return result
     
+
     # CREATE TERM
     def term(self):
         result = self.factor()
@@ -57,15 +59,39 @@ class Parser:
         
         return result
     
+
     # CREATE FACTOR
     def factor(self):
         token = self.current_token
 
-        if token.type == TokenType.LAPREN:
+        # Identify a function
+        if token.type == TokenType.FUNCTION:
+            #func = token
+            self.advance()
+            #token=self.current_token
+
+            if self.current_token.type != TokenType.LPAREN:
+                self.raise_error("Lparen")
+            self.advance()
+
+            # Specify the function input
+            result = self.expr()
+            #self.advance()
+            #while self.current_token.type != TokenType.RPAREN:
+            #    self.advance()
+
+            if self.current_token.type != TokenType.RPAREN:
+                self.raise_error("Rparen")
+            self.advance()
+            
+            return FunctionNode(name="sinfunction", input=NumberNode(result))
+
+        # Find Lparentheses
+        elif token.type == TokenType.LPAREN:
             self.advance()
             result = self.expr()
 
-            #Next should be Rparenthesis
+            # Next should be Rparentheses
             if self.current_token.type != TokenType.RPAREN:
                 self.raise_error()
             
@@ -77,6 +103,10 @@ class Parser:
         elif token.type == TokenType.NUMBER:
             self.advance()
             return NumberNode(token.value)
+        
+        elif token.type == TokenType.VARIABLE:
+            self.advance()
+            return VariableNode(token.value)
         
         # Unitary operator
         elif token.type == TokenType.PLUS:

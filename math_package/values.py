@@ -6,3 +6,7 @@ class Number:
 
     def __repr__(self) -> str:
         return f"{self.value}"
+
+class Variable:
+    value: str
+    
