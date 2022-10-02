@@ -2,7 +2,7 @@ import discord
 import os
 from dotenv import load_dotenv
 
-from math_interpreter import start
+from math_package import *
 
 #Create an instance of a client
 #Intents specification required apparently
@@ -40,10 +40,9 @@ async def on_message(message):
     
     if message.content.startswith("kräftis calc"):
         text = message.content.replace("kräftis calc ", "")
-        result = start.evaluate(text)
+        result = main.evaluate(text)
 
         await message.channel.send(text + " = " + str(result))
-  
 
 
 # RUN the CLIENT
