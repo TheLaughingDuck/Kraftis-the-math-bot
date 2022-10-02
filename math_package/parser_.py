@@ -66,9 +66,8 @@ class Parser:
 
         # Identify a function
         if token.type == TokenType.FUNCTION:
-            #func = token
+            func = token
             self.advance()
-            #token=self.current_token
 
             if self.current_token.type != TokenType.LPAREN:
                 self.raise_error("Lparen")
@@ -84,7 +83,7 @@ class Parser:
                 self.raise_error("Rparen")
             self.advance()
             
-            return FunctionNode(name="sinfunction", input=NumberNode(result))
+            return FunctionNode(name=token.name, input=NumberNode(result))
 
         # Find Lparentheses
         elif token.type == TokenType.LPAREN:

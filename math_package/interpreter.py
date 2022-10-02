@@ -1,5 +1,7 @@
+from unittest import result
 from .nodes import *
 from .values import Number, Variable
+from .functions import func_interpreter
 
 import math
 
@@ -14,8 +16,8 @@ class Interpreter:
         return Number(node.value)
     
     def visit_FunctionNode(self, node):
-        num = math.sin(self.visit(node.input.value).value)
-        return Number(num)
+        result = func_interpreter(node.name, self.visit(node.input.value).value)
+        return Number(result)
     
     def visit_VariableNode(self, node):
         return Variable()

@@ -1,1 +1,1 @@
-__all__ = ["values", "tokens", "nodes", "lexer", "parser_", "interpreter", "main"]
+__all__ = ["values", "tokens", "nodes", "lexer", "parser_", "interpreter", "main", "functions"]
