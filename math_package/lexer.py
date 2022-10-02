@@ -6,9 +6,10 @@ VARNAMES = "X"
 LETTERS = "abcdefghijklmnopqrstuvwxyz"
 
 class Lexer:
-    def __init__(self, text):
+    def __init__(self, text, var_value=None):
         self.text = iter(text)
         self.advance() #Advance to first character
+        self.var_value=var_value
     
 
     def advance(self):
@@ -49,7 +50,7 @@ class Lexer:
             elif self.current_char in VARNAMES:
                 thisname = self.current_char
                 self.advance()
-                yield Token(TokenType.VARIABLE, value=thisname) #change value to name
+                yield Token(TokenType.VARIABLE, name=thisname, value=self.var_value)
             
             # Create FUNCTION token
             elif self.current_char in LETTERS:

@@ -105,7 +105,7 @@ class Parser:
         
         elif token.type == TokenType.VARIABLE:
             self.advance()
-            return VariableNode(token.value)
+            return VariableNode(name=token.name, value=token.value)
         
         # Unitary operator
         elif token.type == TokenType.PLUS:

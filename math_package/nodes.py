@@ -10,6 +10,7 @@ class NumberNode:
 @dataclass
 class VariableNode:
     name: str
+    value: any
     
     def __repr__(self):
         return f"{self.name}"

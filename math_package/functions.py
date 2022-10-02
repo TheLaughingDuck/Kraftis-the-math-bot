@@ -2,7 +2,7 @@ import math
 
 
 def func_interpreter(func_name, input):
-    print(func_name, str(input))
+    #print(func_name, str(input))
     # Trigonometric
     if func_name == "sin":
         return math.sin(input)

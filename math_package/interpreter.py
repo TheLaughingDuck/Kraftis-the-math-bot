@@ -20,7 +20,7 @@ class Interpreter:
         return Number(result)
     
     def visit_VariableNode(self, node):
-        return Variable()
+        return Number(node.value)
     
     def visit_AddNode(self, node):
         return Number(self.visit(node.node_a).value + self.visit(node.node_b).value)

@@ -4,10 +4,10 @@ from .parser_ import Parser
 from .interpreter import Interpreter
 
 # Perform One Calculation
-def evaluate(text):
+def evaluate(text, var_value=None):
     try:
         # CREATE A TREE
-        lexer = Lexer(text)
+        lexer = Lexer(text, var_value=var_value)
         tokens = lexer.generate_tokens()
         parser = Parser(tokens)
         tree = parser.parse()
